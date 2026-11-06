@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>My Appointments</h1>
+
+<table>
+
+    <tr>
+        <th>Doctor</th>
+        <th>Specialization</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    {% for item in records %}
+
+    <tr>
+        <td>{{ item.doctor_name }}</td>
+        <td>{{ item.specialization }}</td>
+        <td>{{ item.appointment_date }}</td>
+        <td>{{ item.appointment_time }}</td>
+        <td>{{ item.status }}</td>
+
+        <td>
+            {% if item.status == 'Booked' %}
+
+            <form method="POST" action="{{ url_for('cancel', id=item.id) }}">
+                <button type="submit">Cancel</button>
+            </form>
+
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    </tr>
+
+    {% else %}
+
+    <tr>
+        <td colspan="6">No appointments found.</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

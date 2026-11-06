@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Welcome, {{ name }}!</h1>
+<p>Manage your hospital appointments from here.</p>
+
+<div class="dashboard">
+
+    <div class="card">
+        <h2>{{ total }}</h2>
+        <p>Total Appointments</p>
+    </div>
+
+    <div class="card">
+        <h2>{{ upcoming }}</h2>
+        <p>Upcoming Appointments</p>
+    </div>
+
+</div>
+
+<div class="actions">
+    <a href="{{ url_for('doctors') }}">Find Doctors</a>
+    <a href="{{ url_for('appointments') }}">My Appointments</a>
+</div>
+
+{% endblock %}

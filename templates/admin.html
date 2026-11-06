@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if admin_logged_in %}
+
+<h1>Admin Dashboard</h1>
+
+<p>Manage all hospital appointments.</p>
+
+<table>
+
+    <tr>
+        <th>Patient</th>
+        <th>Email</th>
+        <th>Doctor</th>
+        <th>Specialization</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    {% for item in records %}
+
+    <tr>
+        <td>{{ item.patient_name }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.doctor_name }}</td>
+        <td>{{ item.specialization }}</td>
+        <td>{{ item.appointment_date }}</td>
+        <td>{{ item.appointment_time }}</td>
+        <td>{{ item.status }}</td>
+
+        <td>
+            {% if item.status == 'Booked' %}
+
+            <form method="POST" action="{{ url_for('admin_cancel', id=item.id) }}">
+                <button type="submit">Cancel</button>
+            </form>
+
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    </tr>
+
+    {% else %}
+
+    <tr>
+        <td colspan="8">No appointments available.</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+<a href="{{ url_for('logout') }}">Logout</a>
+
+{% else %}
+
+<div class="form-card">
+
+    <h1>Administrator Login</h1>
+
+    <form method="POST">
+
+        <label>Username</label>
+        <input type="text" name="username" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Login</button>
+
+    </form>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

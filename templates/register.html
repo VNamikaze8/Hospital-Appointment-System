@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="form-card">
+    <h1>Patient Registration</h1>
+
+    <form method="POST">
+
+        <label>Full Name</label>
+        <input type="text" name="name" placeholder="Full name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Email address" required>
+
+        <label>Phone Number</label>
+        <input type="text" name="phone" placeholder="Phone number">
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <p>Already registered? <a href="{{ url_for('login') }}">Login</a></p>
+</div>
+
+{% endblock %}

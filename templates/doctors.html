@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if selected_doctor %}
+
+<h1>Book Appointment</h1>
+
+<div class="card">
+    <h2>{{ selected_doctor.name }}</h2>
+    <p>Specialization: {{ selected_doctor.specialization }}</p>
+</div>
+
+<div class="form-card">
+
+    <form method="POST">
+
+        <label>Appointment Date</label>
+        <input type="date" name="date" min="{{ today }}" required>
+
+        <label>Appointment Time</label>
+
+        <select name="time" required>
+            <option value="">Select Time</option>
+            <option value="09:00">09:00 AM</option>
+            <option value="10:00">10:00 AM</option>
+            <option value="11:00">11:00 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="14:00">02:00 PM</option>
+            <option value="15:00">03:00 PM</option>
+            <option value="16:00">04:00 PM</option>
+        </select>
+
+        <button type="submit">Confirm Appointment</button>
+
+    </form>
+
+</div>
+
+{% else %}
+
+<h1>Find Your Doctor</h1>
+
+<form method="GET">
+
+    <input
+        type="text"
+        name="specialization"
+        placeholder="Search specialization"
+        value="{{ specialization }}"
+    >
+
+    <button type="submit">Search</button>
+
+</form>
+
+<div class="doctor-grid">
+
+    {% for doctor in doctors %}
+
+    <div class="card">
+
+        <h2>{{ doctor.name }}</h2>
+
+        <p>Specialization: {{ doctor.specialization }}</p>
+
+        <a href="{{ url_for('book', doctor_id=doctor.id) }}">
+            <button>Book Appointment</button>
+        </a>
+
+    </div>
+
+    {% else %}
+
+    <p>No doctors found.</p>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+{% endblock %}
